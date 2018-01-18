@@ -9,10 +9,10 @@
 
 //Define Pins
   //bluetooths EN
-sbit LU=P0^0;
-sbit LD=P0^1;
-sbit RU=P0^2;
-sbit RD=P0^3;
+sbit LU_EN=P0^0;
+sbit LD_EN=P0^1;
+sbit RU_EN=P0^2;
+sbit RD_EN=P0^3;
 
 
 

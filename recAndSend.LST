@@ -1,0 +1,124 @@
+C51 COMPILER V9.01   RECANDSEND                                                            01/18/2018 22:46:09 PAGE 1   
+
+
+C51 COMPILER V9.01, COMPILATION OF MODULE RECANDSEND
+OBJECT MODULE PLACED IN recAndSend.OBJ
+COMPILER INVOKED BY: D:\keil\C51\BIN\C51.EXE recAndSend.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          #include <reg51.h>
+   2          #include <intrins.h>
+   3          #include <string.h>
+   4          #include "mytools.h"
+   5          #include "recAndSend.h"
+   6          
+   7          //********************send message***********************
+   8          void sendByte(uchar byte)
+   9          {
+  10   1              SBUF=byte;
+  11   1              while(!TI);
+  12   1              TI=0;
+  13   1      }
+  14          void sendString(uchar *s)
+  15          {
+  16   1              //strcat(s,'\0');
+  17   1              while(*s!='\0')
+  18   1              {
+  19   2                      sendByte(*s);
+  20   2                      s++;
+  21   2              }
+  22   1      }
+  23          void sendToBT(){
+  24   1              static code char startBT[9]={'A','T','+','I','N','Q',0X0D,0X0A,'\0'};//instruct:AT+INQ\r
+  25   1              static char flag='n';
+  26   1              //set preferences of register.
+  27   1              if('n'==flag){
+  28   2                      TMOD|=0X20;
+  29   2                      SCON=0X50;
+  30   2                      TH1=0XFF;
+  31   2                      TL1=0XFF;
+  32   2                      PCON=0X80;
+  33   2                      //ES=1;
+  34   2                      TR1=1;
+  35   2                      EA=1;
+  36   2                      
+  37   2                      flag='y';       
+  38   2              }
+  39   1              ES=0;
+  40   1              delayms(100);
+  41   1              sendString(startBT);
+  42   1              delayus(100);
+  43   1              ES=1;
+  44   1      }
+  45          /*****************************************************************/
+  46          void initBT(){
+  47   1              uchar i=0;
+  48   1              bit j=0;
+  49   1              for(i=0;i<3;i++){
+  50   2                      if(0==i){
+  51   3                              LU_EN=1;LD_EN=0;RD_EN=0;RU_EN=0;
+  52   3                      }
+  53   2                      //To iterate over,left shift.
+  54   2                      j=LU_EN;
+  55   2                      _nop_();
+C51 COMPILER V9.01   RECANDSEND                                                            01/18/2018 22:46:09 PAGE 2   
+
+  56   2                      LU_EN=LD_EN;
+  57   2                      _nop_();
+  58   2                      LD_EN=RD_EN;
+  59   2                      _nop_();
+  60   2                      RD_EN=RU_EN;
+  61   2                      RU_EN=j;
+  62   2                      
+  63   2                      //Send instruct to bluetooth.
+  64   2                      sendToBT();
+  65   2                      if(3==i){
+  66   3                              LU_EN=0;
+  67   3                      }
+  68   2              }
+  69   1      }
+  70          
+  71          char *getRSSI(char wit){
+  72   1              static char flag='n';//n:have not been initialized,y:have been initialized. 
+  73   1              if(flag=='n'){
+  74   2                      initBT();//Initialize bluetooth.
+  75   2                      flag='y';
+  76   2              }
+  77   1              LU_EN=0;RU_EN=0;RD_EN=0;LD_EN=0;
+  78   1              switch(wit){
+  79   2                      case 0:
+  80   2                              LU_EN=1;
+  81   2                              break;
+  82   2                      case 1:
+  83   2                              RU_EN=1;
+  84   2                              break;
+  85   2                      case 2:
+  86   2                              RD_EN=1;
+  87   2                              break;
+  88   2                      case 3:
+  89   2                              LD_EN=1;
+  90   2                              break;
+  91   2              }
+  92   1      
+  93   1              sendToBT();
+  94   1      }
+*** WARNING C173 IN LINE 94 OF RECANDSEND.C: missing return-expression
+  95          
+  96          
+  97          
+*** WARNING C290 IN LINE 94 OF RECANDSEND.C: missing return value
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    197    ----
+   CONSTANT SIZE    =      9    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      2       2
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----       1
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  2 WARNING(S),  0 ERROR(S)
