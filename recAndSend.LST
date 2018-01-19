@@ -1,4 +1,4 @@
-C51 COMPILER V9.01   RECANDSEND                                                            01/18/2018 22:46:09 PAGE 1   
+C51 COMPILER V9.01   RECANDSEND                                                            01/19/2018 18:20:30 PAGE 1   
 
 
 C51 COMPILER V9.01, COMPILATION OF MODULE RECANDSEND
@@ -55,14 +55,14 @@ line level    source
   46          void initBT(){
   47   1              uchar i=0;
   48   1              bit j=0;
-  49   1              for(i=0;i<3;i++){
+  49   1              for(i=0;i<0;i++){
   50   2                      if(0==i){
   51   3                              LU_EN=1;LD_EN=0;RD_EN=0;RU_EN=0;
   52   3                      }
   53   2                      //To iterate over,left shift.
   54   2                      j=LU_EN;
   55   2                      _nop_();
-C51 COMPILER V9.01   RECANDSEND                                                            01/18/2018 22:46:09 PAGE 2   
+C51 COMPILER V9.01   RECANDSEND                                                            01/19/2018 18:20:30 PAGE 2   
 
   56   2                      LU_EN=LD_EN;
   57   2                      _nop_();
@@ -72,7 +72,7 @@ line level    source
   61   2                      RU_EN=j;
   62   2                      
   63   2                      //Send instruct to bluetooth.
-  64   2                      sendToBT();
+  64   2      //              sendToBT();
   65   2                      if(3==i){
   66   3                              LU_EN=0;
   67   3                      }
@@ -111,11 +111,11 @@ line level    source
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =    197    ----
+   CODE SIZE        =    187    ----
    CONSTANT SIZE    =      9    ----
    XDATA SIZE       =   ----    ----
    PDATA SIZE       =   ----    ----
-   DATA SIZE        =      2       2
+   DATA SIZE        =      2    ----
    IDATA SIZE       =   ----    ----
    BIT SIZE         =   ----       1
 END OF MODULE INFORMATION.
