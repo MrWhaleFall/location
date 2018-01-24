@@ -29,7 +29,7 @@ void sendToBT(){
 		SCON=0X50;
 		TH1=0XFF;
 		TL1=0XFF;
-		PCON=0X80;
+		PCON=0X80;//set SMOD
 		//ES=1;
 		TR1=1;
 		EA=1;
