@@ -1,4 +1,4 @@
-C51 COMPILER V9.01   MYTOOLS                                                               01/21/2018 17:15:14 PAGE 1   
+C51 COMPILER V9.01   MYTOOLS                                                               01/24/2018 22:39:16 PAGE 1   
 
 
 C51 COMPILER V9.01, COMPILATION OF MODULE MYTOOLS
@@ -9,47 +9,134 @@ line level    source
 
    1          #include <reg51.h>
    2          #include "myTools.h"
-   3          //function of delay
-   4          void delayus(uint i){
-   5   1              while(i--);
-   6   1      }
-   7          void delayms(uint i){
-   8   1         while(i--){
-   9   2              delayus(200);
-  10   2         }
-  11   1      }
-  12          
-  13          
-  14          /************************************testing******************
-  15          //this function is used 22.1184MHZ
-  16          void iniTimer0(){
-  17                  TMOD|=0X01;//Select timer0 mode,word mode 1
-  18                  TH0=0XFF;
-  19                  TL0=0XFE;//delay 1us
-  20                  ET0=1;//allow timer0
-  21                  EA=1;
-  22                  TR0=1;//when use timer0 just let TR0=1
-  23          
-  24          }
-  25          
-  26          void timer0(uint i){
-  27                  static char flag='n';//'y':Has been initialized
-  28                  if('n'==flag){
-  29                          iniTimer0();
-  30                  }
-  31          }
-  32          */
+   3          
+   4          sbit fff=P0^1;
+   5          uchar recMsg[26]={0x00};
+   6          uchar end=0;//When it equal 4,accept end.
+   7          //function of delay
+   8          void delayus(uint i){
+   9   1              while(i--);
+  10   1      }
+  11          void delayms(uint i){
+  12   1         while(i--){
+  13   2              delayus(200);
+  14   2         }
+  15   1      }
+  16          
+  17          //********************send message***********************
+  18          void sendByte(uchar byte)
+  19          {
+  20   1              SBUF=byte;
+  21   1              while(!TI);
+  22   1              TI=0;
+  23   1      }
+  24          void sendString(uchar *s)
+  25          {
+  26   1              //strcat(s,'\0');
+  27   1              while(*s!='\0')
+  28   1              {
+  29   2                      sendByte(*s);
+  30   2                      s++;
+  31   2              }
+  32   1      }
+  33          void sendMsg(char* msg[]){
+*** WARNING C235 IN LINE 33 OF MYTOOLS.C: parameter 1: different types
+  34   1              /*
+  35   1              static char flag='n';
+  36   1              //set preferences of register.
+  37   1              if('n'==flag){
+  38   1                      TMOD|=0X20;
+  39   1                      SCON=0X50;
+  40   1                      TH1=0XFF;
+  41   1                      TL1=0XFF;
+  42   1                      PCON=0X80;//set SMOD
+  43   1                      ES=1;
+  44   1                      TR1=1;
+  45   1                      EA=1;
+  46   1                      flag='y';       
+  47   1              }
+  48   1              */
+  49   1              ES=0;
+  50   1              delayms(100);
+  51   1              sendString(msg);
+*** WARNING C182 IN LINE 51 OF MYTOOLS.C: pointer to different objects
+  52   1              delayus(100);
+  53   1              ES=1;
+C51 COMPILER V9.01   MYTOOLS                                                               01/24/2018 22:39:16 PAGE 2   
 
+  54   1      }
+  55          
+  56          void UsartInit()
+  57          {
+  58   1              SCON=0X50;                      //设置为工作方式1
+  59   1              TMOD=0X20;                      //设置计数器工作方式2
+  60   1              PCON=0X80;                      //波特率加倍
+  61   1              TH1=0XFF;                               //计数器初始值设置，注意波特率是4800的
+  62   1              TL1=0XFF;
+  63   1              ES=1;                                           //打开接收中断
+  64   1              EA=1;                                           //打开总中断
+  65   1              TR1=1;                                  //打开计数器
+  66   1      }
+  67          
+  68          void receiver() interrupt 4
+  69          {
+  70   1              
+  71   1              static char i=0;
+  72   1              static char flag=0;
+  73   1              char ch=0;
+  74   1              static ch2=0;//ch2:How times get ',' to judge the end.
+  75   1              
+  76   1              ch=SBUF;
+  77   1              if('+'==ch || flag==1){
+  78   2                      flag++;
+  79   2                      
+  80   2                      if('I'==ch){
+  81   3                              flag++;//flag=3
+  82   3                      }
+  83   2                      else{
+  84   3                              flag=0;
+  85   3                      }
+  86   2              }
+  87   1              if(flag>=3){
+  88   2                      flag++;
+  89   2                      //this time get ':'.
+  90   2                      if(flag>6){
+  91   3                              if(ch==',')
+  92   3                              {
+  93   4                                      ch2++;
+  94   4                              }
+  95   3                              if(ch2!=1){
+  96   4                                 recMsg[i++]=ch;
+  97   4                              }
+  98   3                              if(ch2==2){
+  99   4                                      end++;
+ 100   4                                      if(end==4){                                     
+ 101   5                                              recMsg[i++]=0x0D;
+ 102   5                                              recMsg[i++]=0x0A;
+ 103   5                                              recMsg[i++]='\0';
+ 104   5                                              i=0;
+ 105   5                                              flag=0;
+ 106   5                                              ch2=0;
+ 107   5                                              
+ 108   5                                      }
+ 109   4                              }                       
+ 110   3                      }
+ 111   2              }
+ 112   1              RI=0;
+ 113   1      }
+
+
+C51 COMPILER V9.01   MYTOOLS                                                               01/24/2018 22:39:16 PAGE 3   
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =     35    ----
+   CODE SIZE        =    274    ----
    CONSTANT SIZE    =   ----    ----
    XDATA SIZE       =   ----    ----
    PDATA SIZE       =   ----    ----
-   DATA SIZE        =   ----    ----
+   DATA SIZE        =     31       3
    IDATA SIZE       =   ----    ----
    BIT SIZE         =   ----    ----
 END OF MODULE INFORMATION.
 
 
-C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
+C51 COMPILATION COMPLETE.  2 WARNING(S),  0 ERROR(S)

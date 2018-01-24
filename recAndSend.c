@@ -4,44 +4,7 @@
 #include "mytools.h"
 #include "recAndSend.h"
 
-//********************send message***********************
-void sendByte(uchar byte)
-{
-	SBUF=byte;
-	while(!TI);
-	TI=0;
-}
-void sendString(uchar *s)
-{
-	//strcat(s,'\0');
-	while(*s!='\0')
-	{
-		sendByte(*s);
-		s++;
-	}
-}
-void sendToBT(){
-	static code char startBT[9]={'A','T','+','I','N','Q',0X0D,0X0A,'\0'};//instruct:AT+INQ\r
-	static char flag='n';
-	//set preferences of register.
-	if('n'==flag){
-		TMOD|=0X20;
-		SCON=0X50;
-		TH1=0XFF;
-		TL1=0XFF;
-		PCON=0X80;//set SMOD
-		//ES=1;
-		TR1=1;
-		EA=1;
-		
-		flag='y';	
-	}
-	ES=0;
-	delayms(100);
-	sendString(startBT);
-	delayus(100);
-	ES=1;
-}
+
 /*****************************End of send struction************************************/
 void initBT(){
 	uchar i=0;
@@ -61,7 +24,7 @@ void initBT(){
 		RU_EN=j;
 		
 		//Send instruct to bluetooth.
-		sendToBT();
+		//sendToBT();
 		if(3==i){
 			LU_EN=0;
 		}
@@ -90,7 +53,7 @@ char *getRSSI(char wit){
 			break;
 	}
 
-	sendToBT();
+	//sendToBT();
 }
 
 
