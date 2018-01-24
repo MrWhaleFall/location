@@ -80,8 +80,8 @@ void receiver() interrupt 4
 		if('I'==ch){
 			flag++;//flag=3
 		}
-		else{
-			flag=0;
+		else if(flag==2) {
+			//flag=0;
 		}
 	}
 	if(flag>=3){

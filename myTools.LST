@@ -1,4 +1,4 @@
-C51 COMPILER V9.01   MYTOOLS                                                               01/24/2018 22:39:16 PAGE 1   
+C51 COMPILER V9.01   MYTOOLS                                                               01/24/2018 22:59:15 PAGE 1   
 
 
 C51 COMPILER V9.01, COMPILATION OF MODULE MYTOOLS
@@ -62,7 +62,7 @@ line level    source
 *** WARNING C182 IN LINE 51 OF MYTOOLS.C: pointer to different objects
   52   1              delayus(100);
   53   1              ES=1;
-C51 COMPILER V9.01   MYTOOLS                                                               01/24/2018 22:39:16 PAGE 2   
+C51 COMPILER V9.01   MYTOOLS                                                               01/24/2018 22:59:15 PAGE 2   
 
   54   1      }
   55          
@@ -93,8 +93,8 @@ line level    source
   80   2                      if('I'==ch){
   81   3                              flag++;//flag=3
   82   3                      }
-  83   2                      else{
-  84   3                              flag=0;
+  83   2                      else if(flag==2) {
+  84   3                              //flag=0;
   85   3                      }
   86   2              }
   87   1              if(flag>=3){
@@ -126,10 +126,10 @@ line level    source
  113   1      }
 
 
-C51 COMPILER V9.01   MYTOOLS                                                               01/24/2018 22:39:16 PAGE 3   
+C51 COMPILER V9.01   MYTOOLS                                                               01/24/2018 22:59:15 PAGE 3   
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =    274    ----
+   CODE SIZE        =    269    ----
    CONSTANT SIZE    =   ----    ----
    XDATA SIZE       =   ----    ----
    PDATA SIZE       =   ----    ----
