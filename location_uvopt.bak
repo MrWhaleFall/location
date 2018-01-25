@@ -172,10 +172,10 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>10</ColumnNumber>
+      <ColumnNumber>7</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
       <TopLine>1</TopLine>
-      <CurrentLine>5</CurrentLine>
+      <CurrentLine>8</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\mian.c</PathWithFileName>
       <FilenameWithoutPath>mian.c</FilenameWithoutPath>
@@ -186,10 +186,10 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>51</ColumnNumber>
+      <ColumnNumber>11</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>44</TopLine>
-      <CurrentLine>45</CurrentLine>
+      <TopLine>10</TopLine>
+      <CurrentLine>30</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\recAndSend.c</PathWithFileName>
       <FilenameWithoutPath>recAndSend.c</FilenameWithoutPath>
@@ -1579,13 +1579,13 @@
     <ActiveMDIGroup>0</ActiveMDIGroup>
     <MDIGroup>
       <Size>100</Size>
-      <ActiveTab>2</ActiveTab>
+      <ActiveTab>0</ActiveTab>
       <Documents>
         <Doc>
           <Name>.\mian.c</Name>
-          <ColumnNumber>10</ColumnNumber>
+          <ColumnNumber>7</ColumnNumber>
           <TopLine>1</TopLine>
-          <CurrentLine>5</CurrentLine>
+          <CurrentLine>8</CurrentLine>
         </Doc>
         <Doc>
           <Name>RECANDSEND.H</Name>
@@ -1595,9 +1595,9 @@
         </Doc>
         <Doc>
           <Name>.\recAndSend.c</Name>
-          <ColumnNumber>51</ColumnNumber>
-          <TopLine>44</TopLine>
-          <CurrentLine>45</CurrentLine>
+          <ColumnNumber>11</ColumnNumber>
+          <TopLine>10</TopLine>
+          <CurrentLine>30</CurrentLine>
         </Doc>
         <Doc>
           <Name>.\myTools.c</Name>

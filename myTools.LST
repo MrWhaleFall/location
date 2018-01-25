@@ -1,4 +1,4 @@
-C51 COMPILER V9.01   MYTOOLS                                                               01/24/2018 22:59:15 PAGE 1   
+C51 COMPILER V9.01   MYTOOLS                                                               01/25/2018 20:12:57 PAGE 1   
 
 
 C51 COMPILER V9.01, COMPILATION OF MODULE MYTOOLS
@@ -10,126 +10,125 @@ line level    source
    1          #include <reg51.h>
    2          #include "myTools.h"
    3          
-   4          sbit fff=P0^1;
-   5          uchar recMsg[26]={0x00};
-   6          uchar end=0;//When it equal 4,accept end.
-   7          //function of delay
-   8          void delayus(uint i){
-   9   1              while(i--);
-  10   1      }
-  11          void delayms(uint i){
-  12   1         while(i--){
-  13   2              delayus(200);
-  14   2         }
-  15   1      }
-  16          
-  17          //********************send message***********************
-  18          void sendByte(uchar byte)
-  19          {
-  20   1              SBUF=byte;
-  21   1              while(!TI);
-  22   1              TI=0;
-  23   1      }
-  24          void sendString(uchar *s)
-  25          {
-  26   1              //strcat(s,'\0');
-  27   1              while(*s!='\0')
-  28   1              {
-  29   2                      sendByte(*s);
-  30   2                      s++;
-  31   2              }
-  32   1      }
-  33          void sendMsg(char* msg[]){
-*** WARNING C235 IN LINE 33 OF MYTOOLS.C: parameter 1: different types
-  34   1              /*
-  35   1              static char flag='n';
-  36   1              //set preferences of register.
-  37   1              if('n'==flag){
-  38   1                      TMOD|=0X20;
-  39   1                      SCON=0X50;
-  40   1                      TH1=0XFF;
-  41   1                      TL1=0XFF;
-  42   1                      PCON=0X80;//set SMOD
-  43   1                      ES=1;
-  44   1                      TR1=1;
-  45   1                      EA=1;
-  46   1                      flag='y';       
-  47   1              }
-  48   1              */
-  49   1              ES=0;
-  50   1              delayms(100);
-  51   1              sendString(msg);
-*** WARNING C182 IN LINE 51 OF MYTOOLS.C: pointer to different objects
-  52   1              delayus(100);
-  53   1              ES=1;
-C51 COMPILER V9.01   MYTOOLS                                                               01/24/2018 22:59:15 PAGE 2   
+   4          uchar recMsg[26]={0x00};
+   5          uchar end=0;//When it equal 5,accept end.
+   6          //function of delay
+   7          void delayus(uint i){
+   8   1              while(i--);
+   9   1      }
+  10          void delayms(uint i){
+  11   1         while(i--){
+  12   2              delayus(200);
+  13   2         }
+  14   1      }
+  15          
+  16          //********************send message***********************
+  17          void sendByte(uchar byte)
+  18          {
+  19   1              SBUF=byte;
+  20   1              while(!TI);
+  21   1              TI=0;
+  22   1      }
+  23          void sendString(uchar *s)
+  24          {
+  25   1              //strcat(s,'\0');
+  26   1              while(*s!='\0')
+  27   1              {
+  28   2                      sendByte(*s);
+  29   2                      s++;
+  30   2              }
+  31   1      }
+  32          void sendMsg(char* msg[]){
+*** WARNING C235 IN LINE 32 OF MYTOOLS.C: parameter 1: different types
+  33   1              /*
+  34   1              static char flag='n';
+  35   1              //set preferences of register.
+  36   1              if('n'==flag){
+  37   1                      TMOD|=0X20;
+  38   1                      SCON=0X50;
+  39   1                      TH1=0XFF;
+  40   1                      TL1=0XFF;
+  41   1                      PCON=0X80;//set SMOD
+  42   1                      ES=1;
+  43   1                      TR1=1;
+  44   1                      EA=1;
+  45   1                      flag='y';       
+  46   1              }
+  47   1              */
+  48   1              ES=0;
+  49   1              delayms(100);
+  50   1              sendString(msg);
+*** WARNING C182 IN LINE 50 OF MYTOOLS.C: pointer to different objects
+  51   1              delayus(100);
+  52   1              ES=1;
+  53   1      }
+C51 COMPILER V9.01   MYTOOLS                                                               01/25/2018 20:12:57 PAGE 2   
 
-  54   1      }
-  55          
-  56          void UsartInit()
-  57          {
-  58   1              SCON=0X50;                      //设置为工作方式1
-  59   1              TMOD=0X20;                      //设置计数器工作方式2
-  60   1              PCON=0X80;                      //波特率加倍
-  61   1              TH1=0XFF;                               //计数器初始值设置，注意波特率是4800的
-  62   1              TL1=0XFF;
-  63   1              ES=1;                                           //打开接收中断
-  64   1              EA=1;                                           //打开总中断
-  65   1              TR1=1;                                  //打开计数器
-  66   1      }
-  67          
-  68          void receiver() interrupt 4
-  69          {
-  70   1              
-  71   1              static char i=0;
-  72   1              static char flag=0;
-  73   1              char ch=0;
-  74   1              static ch2=0;//ch2:How times get ',' to judge the end.
-  75   1              
-  76   1              ch=SBUF;
-  77   1              if('+'==ch || flag==1){
-  78   2                      flag++;
-  79   2                      
-  80   2                      if('I'==ch){
-  81   3                              flag++;//flag=3
-  82   3                      }
-  83   2                      else if(flag==2) {
-  84   3                              //flag=0;
-  85   3                      }
-  86   2              }
-  87   1              if(flag>=3){
-  88   2                      flag++;
-  89   2                      //this time get ':'.
-  90   2                      if(flag>6){
-  91   3                              if(ch==',')
-  92   3                              {
-  93   4                                      ch2++;
-  94   4                              }
-  95   3                              if(ch2!=1){
-  96   4                                 recMsg[i++]=ch;
-  97   4                              }
-  98   3                              if(ch2==2){
-  99   4                                      end++;
- 100   4                                      if(end==4){                                     
- 101   5                                              recMsg[i++]=0x0D;
- 102   5                                              recMsg[i++]=0x0A;
- 103   5                                              recMsg[i++]='\0';
- 104   5                                              i=0;
- 105   5                                              flag=0;
- 106   5                                              ch2=0;
- 107   5                                              
- 108   5                                      }
- 109   4                              }                       
- 110   3                      }
- 111   2              }
- 112   1              RI=0;
- 113   1      }
+  54          
+  55          void UsartInit()
+  56          {
+  57   1              SCON=0X50;              
+  58   1              TMOD=0X20;                      
+  59   1              PCON=0X80;                      
+  60   1              TH1=0XFF;                       
+  61   1              TL1=0XFF;
+  62   1              ES=1;                                   
+  63   1              EA=1;                                   
+  64   1              TR1=1;                                  
+  65   1      }
+  66          
+  67          void receiver() interrupt 4
+  68          {
+  69   1              
+  70   1              static char i=0;
+  71   1              static char flag=0;
+  72   1              char ch=0;
+  73   1              static ch2=0;//ch2:How times get ',' to judge the end.
+  74   1              
+  75   1              ch=SBUF;
+  76   1              if('+'==ch || flag==1){
+  77   2                      flag++;
+  78   2                      
+  79   2                      if('I'==ch){
+  80   3                              flag++;//flag=3
+  81   3                      }
+  82   2                      else if(flag==2) {
+  83   3                              flag=0;
+  84   3                      }
+  85   2              }
+  86   1              if(flag>=3){
+  87   2                      flag++;
+  88   2                      //this time get ':'.
+  89   2                      if(flag>7){
+  90   3                              if(ch==',')
+  91   3                              {
+  92   4                                      ch2++;
+  93   4                              }
+  94   3                              if(ch2!=1){
+  95   4                                 recMsg[i++]=ch;
+  96   4                              }
+  97   3                              if(ch2==2){
+  98   4                                      end++;
+  99   4                                      if(end==5){                                     
+ 100   5                                              recMsg[i++]='\r';
+ 101   5                                              recMsg[i++]='\n';
+ 102   5                                              recMsg[i++]='\0';
+ 103   5                                              i=0;
+ 104   5                                              flag=0;
+ 105   5                                              ch2=0;
+ 106   5                                              
+ 107   5                                      }
+ 108   4                              }                       
+ 109   3                      }
+ 110   2              }
+ 111   1              RI=0;
+ 112   1      }
 
-
-C51 COMPILER V9.01   MYTOOLS                                                               01/24/2018 22:59:15 PAGE 3   
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =    269    ----
+C51 COMPILER V9.01   MYTOOLS                                                               01/25/2018 20:12:57 PAGE 3   
+
+   CODE SIZE        =    279    ----
    CONSTANT SIZE    =   ----    ----
    XDATA SIZE       =   ----    ----
    PDATA SIZE       =   ----    ----

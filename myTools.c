@@ -1,9 +1,8 @@
 #include <reg51.h>
 #include "myTools.h"
 
-sbit fff=P0^1;
 uchar recMsg[26]={0x00};
-uchar end=0;//When it equal 4,accept end.
+uchar end=0;//When it equal 5,accept end.
 //function of delay
 void delayus(uint i){
 	while(i--);
@@ -55,14 +54,14 @@ void sendMsg(char* msg[]){
 
 void UsartInit()
 {
-	SCON=0X50;			//设置为工作方式1
-	TMOD=0X20;			//设置计数器工作方式2
-	PCON=0X80;			//波特率加倍
-	TH1=0XFF;				//计数器初始值设置，注意波特率是4800的
+	SCON=0X50;		
+	TMOD=0X20;			
+	PCON=0X80;			
+	TH1=0XFF;			
 	TL1=0XFF;
-	ES=1;						//打开接收中断
-	EA=1;						//打开总中断
-	TR1=1;					//打开计数器
+	ES=1;					
+	EA=1;					
+	TR1=1;					
 }
 
 void receiver() interrupt 4
@@ -81,13 +80,13 @@ void receiver() interrupt 4
 			flag++;//flag=3
 		}
 		else if(flag==2) {
-			//flag=0;
+			flag=0;
 		}
 	}
 	if(flag>=3){
 		flag++;
 		//this time get ':'.
-		if(flag>6){
+		if(flag>7){
 			if(ch==',')
 			{
 				ch2++;
@@ -97,9 +96,9 @@ void receiver() interrupt 4
 			}
 			if(ch2==2){
 				end++;
-				if(end==4){					
-					recMsg[i++]=0x0D;
-					recMsg[i++]=0x0A;
+				if(end==5){					
+					recMsg[i++]='\r';
+					recMsg[i++]='\n';
 					recMsg[i++]='\0';
 					i=0;
 					flag=0;
