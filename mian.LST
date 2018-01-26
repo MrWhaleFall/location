@@ -1,4 +1,4 @@
-C51 COMPILER V9.01   MIAN                                                                  01/25/2018 20:12:55 PAGE 1   
+C51 COMPILER V9.01   MIAN                                                                  01/26/2018 14:25:09 PAGE 1   
 
 
 C51 COMPILER V9.01, COMPILATION OF MODULE MIAN
@@ -8,10 +8,10 @@ COMPILER INVOKED BY: D:\keil\C51\BIN\C51.EXE mian.c BROWSE DEBUG OBJECTEXTEND
 line level    source
 
    1          #include <reg51.h>
-   2          #include <string.h>
-   3          #include "myTools.h"
-   4          #include "recAndSend.h"
-   5          
+   2          #include "myTools.h"
+   3          #include "recAndSend.h"
+   4          
+   5          uchar j=0;
    6          sbit ES_RI=P0^4;
    7          sbit BT_RI=P0^5;
    8          sbit ES_TI=P0^6;
@@ -21,37 +21,57 @@ line level    source
   12          sbit LEVEL=P0^0;
   13          int main(){
   14   1               
-  15   1              UsartInit();
-  16   1              delayms(7000);
-  17   1              sendMsg("AT+CIPSTART=\"TCP\",\"10.4.19.76\",3333\r\n\0");
-  18   1                      delayms(1000);
-  19   1                      sendMsg("AT+INQ\r\n\0");
-  20   1              while(1){                  
-  21   2                      if(end==5){             
-  22   3                              end=0;
-  23   3                              sendMsg("AT+CIPSEND=26\r\n\0");
-  24   3                              delayms(1000);
-  25   3                              sendMsg(recMsg);
-  26   3                      }
-  27   2              }
-  28   1              
-  29   1              /*
-  30   1              UsartInit();
-  31   1              while(1){
-  32   1                      if(end==5){
-  33   1                              end=0;
-  34   1                              sendMsg(recMsg);
-  35   1                      }
-  36   1              }*/     
-  37   1      }
+  15   1              
+  16   1              delayms(5000);
+  17   1              UsartInit();
+  18   1              sendMsg("AT+CIPSTART=\"TCP\",\"10.4.19.76\",3333\r\n\0");
+  19   1                      delayms(1000);
+  20   1                      sendMsg("AT+INQ\r\n\0");
+  21   1                      /*
+  22   1              while(1){                  
+  23   1                      if(end==5){             
+  24   1                              end=0;
+  25   1                              
+  26   1                              j=Strlen(recMsg);
+  27   1                              sendMsg("AT+CIPSEND=");//26\r\n\0");
+  28   1                              sendByte(j);
+  29   1                              sendMsg("\r\n\0");
+  30   1                              
+  31   1                              /*sendMsg("AT+CIPSEND=22\r\n\0");
+  32   1                              delayms(1000);
+  33   1                              sendMsg(recMsg); 
+  34   1                              sendMsg("hello\r\n\0");
+  35   1                              sendMsg(recMsg);
+  36   1                      }
+  37   1              }
+  38   1              */
+  39   1              
+  40   1              UsartInit();
+  41   1              while(1){
+  42   2                      j++;
+  43   2                      if(j==600)
+  44   2                      {
+  45   3                              j=0;
+  46   3                              sendMsg("AT+INQ\r\n\0");
+  47   3                      }
+  48   2                      if(end==5){
+  49   3                              sendMsg("AT+CIPSEND=26\r\n\0");
+  50   3                              delayms(10);
+  51   3                              end=0;
+  52   3                              sendMsg(recMsg);
+  53   3                      }
+  54   2              }       
+  55   1      }
+C51 COMPILER V9.01   MIAN                                                                  01/26/2018 14:25:09 PAGE 2   
+
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =     70    ----
+   CODE SIZE        =     96    ----
    CONSTANT SIZE    =     66    ----
    XDATA SIZE       =   ----    ----
    PDATA SIZE       =   ----    ----
-   DATA SIZE        =   ----    ----
+   DATA SIZE        =      1    ----
    IDATA SIZE       =   ----    ----
    BIT SIZE         =   ----    ----
 END OF MODULE INFORMATION.

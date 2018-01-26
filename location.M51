@@ -1,4 +1,4 @@
-BL51 BANKED LINKER/LOCATER V6.22                                                        01/25/2018  20:12:57  PAGE 1
+BL51 BANKED LINKER/LOCATER V6.22                                                        01/26/2018  14:25:09  PAGE 1
 
 
 BL51 BANKED LINKER/LOCATER V6.22, INVOKED BY:
@@ -26,8 +26,9 @@ LINK MAP OF MODULE:  location (MIAN)
             * * * * * * *   D A T A   M E M O R Y   * * * * * * *
             REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
             DATA    0008H     0003H     UNIT         _DATA_GROUP_
-            DATA    000BH     0001H     UNIT         ?DT?RECANDSEND
-                    000CH     0014H                  *** GAP ***
+            DATA    000BH     0001H     UNIT         ?DT?MIAN
+            DATA    000CH     0001H     UNIT         ?DT?RECANDSEND
+                    000DH     0013H                  *** GAP ***
             BIT     0020H.0   0000H.1   UNIT         ?BI?INITBT?RECANDSEND
                     0020H.1   0000H.7                *** GAP ***
             DATA    0021H     001FH     UNIT         ?DT?MYTOOLS
@@ -40,36 +41,37 @@ LINK MAP OF MODULE:  location (MIAN)
             CODE    0023H     0003H     ABSOLUTE     
             CODE    0026H     00A1H     UNIT         ?PR?RECEIVER?MYTOOLS
             CODE    00C7H     008CH     UNIT         ?C_C51STARTUP
-            CODE    0153H     0046H     UNIT         ?PR?MAIN?MIAN
-            CODE    0199H     0042H     UNIT         ?CO?MIAN
-            CODE    01DBH     0035H     UNIT         ?PR?INITBT?RECANDSEND
-            CODE    0210H     002FH     UNIT         ?PR?_GETRSSI?RECANDSEND
-            CODE    023FH     002DH     UNIT         ?C_INITSEG
-            CODE    026CH     0022H     UNIT         ?PR?_SENDMSG?MYTOOLS
-            CODE    028EH     0018H     UNIT         ?PR?_DELAYMS?MYTOOLS
-            CODE    02A6H     0016H     UNIT         ?PR?USARTINIT?MYTOOLS
-            CODE    02BCH     0013H     UNIT         ?PR?_SENDSTRING?MYTOOLS
-            CODE    02CFH     000BH     UNIT         ?PR?_DELAYUS?MYTOOLS
-            CODE    02DAH     0008H     UNIT         ?PR?_SENDBYTE?MYTOOLS
+            CODE    0153H     0060H     UNIT         ?PR?MAIN?MIAN
+            CODE    01B3H     0042H     UNIT         ?CO?MIAN
+            CODE    01F5H     0035H     UNIT         ?PR?INITBT?RECANDSEND
+            CODE    022AH     0030H     UNIT         ?C_INITSEG
+            CODE    025AH     002FH     UNIT         ?PR?_GETRSSI?RECANDSEND
+            CODE    0289H     0022H     UNIT         ?PR?_SENDMSG?MYTOOLS
+            CODE    02ABH     0018H     UNIT         ?PR?_DELAYMS?MYTOOLS
+            CODE    02C3H     0016H     UNIT         ?PR?USARTINIT?MYTOOLS
+            CODE    02D9H     0013H     UNIT         ?PR?_SENDSTRING?MYTOOLS
+            CODE    02ECH     000EH     UNIT         ?PR?_STRLEN?MYTOOLS
+            CODE    02FAH     000BH     UNIT         ?PR?_DELAYUS?MYTOOLS
+            CODE    0305H     0008H     UNIT         ?PR?_SENDBYTE?MYTOOLS
 
 
 
 OVERLAY MAP OF MODULE:   location (MIAN)
 
 
+BL51 BANKED LINKER/LOCATER V6.22                                                      01/26/2018  14:25:09  PAGE 2
+
+
 SEGMENT                           DATA_GROUP 
   +--> CALLED SEGMENT           START    LENGTH
-BL51 BANKED LINKER/LOCATER V6.22                                                      01/25/2018  20:12:57  PAGE 2
-
-
 -----------------------------------------------
 ?C_C51STARTUP                   -----    -----
   +--> ?PR?MAIN?MIAN
   +--> ?C_INITSEG
 
 ?PR?MAIN?MIAN                   -----    -----
-  +--> ?PR?USARTINIT?MYTOOLS
   +--> ?PR?_DELAYMS?MYTOOLS
+  +--> ?PR?USARTINIT?MYTOOLS
   +--> ?CO?MIAN
   +--> ?PR?_SENDMSG?MYTOOLS
 
@@ -95,21 +97,32 @@ SYMBOL TABLE OF MODULE:  location (MIAN)
   C:0000H         SYMBOL        _ICE_DUMMY_
   D:0080H         PUBLIC        P0
   C:0153H         PUBLIC        main
+  D:000BH         PUBLIC        j
   -------         PROC          MAIN
   C:0153H         LINE#         13
-  C:0153H         LINE#         15
-  C:0156H         LINE#         16
-  C:015DH         LINE#         17
-  C:0166H         LINE#         18
-  C:016DH         LINE#         19
-  C:0176H         LINE#         20
-  C:0176H         LINE#         21
-  C:017BH         LINE#         22
-  C:017EH         LINE#         23
-  C:0187H         LINE#         24
-  C:018EH         LINE#         25
-  C:0197H         LINE#         26
-  C:0197H         LINE#         27
+  C:0153H         LINE#         16
+  C:015AH         LINE#         17
+  C:015DH         LINE#         18
+  C:0166H         LINE#         19
+  C:016DH         LINE#         20
+  C:0176H         LINE#         40
+  C:0179H         LINE#         41
+  C:0179H         LINE#         42
+  C:017BH         LINE#         43
+  C:0185H         LINE#         44
+  C:0185H         LINE#         45
+  C:0188H         LINE#         46
+  C:0191H         LINE#         47
+  C:0191H         LINE#         48
+  C:0196H         LINE#         49
+  C:019FH         LINE#         50
+  C:01A6H         LINE#         51
+  C:01A9H         LINE#         52
+  C:01B1H         LINE#         53
+BL51 BANKED LINKER/LOCATER V6.22                                                      01/26/2018  14:25:09  PAGE 3
+
+
+  C:01B1H         LINE#         54
   -------         ENDPROC       MAIN
   -------         ENDMOD        MIAN
 
@@ -117,71 +130,68 @@ SYMBOL TABLE OF MODULE:  location (MIAN)
   C:0000H         SYMBOL        _ICE_DUMMY_
   D:0080H         PUBLIC        P0
   B:0080H.1       PUBLIC        LD_EN
-  C:0210H         PUBLIC        _getRSSI
+  C:025AH         PUBLIC        _getRSSI
   B:0080H.3       PUBLIC        RD_EN
-BL51 BANKED LINKER/LOCATER V6.22                                                      01/25/2018  20:12:57  PAGE 3
-
-
   B:0080H.0       PUBLIC        LU_EN
   B:0080H.2       PUBLIC        RU_EN
-  C:01DBH         PUBLIC        initBT
+  C:01F5H         PUBLIC        initBT
   -------         PROC          INITBT
   -------         DO            
   D:0007H         SYMBOL        i
   B:0020H.0       SYMBOL        j
   -------         ENDDO         
-  C:01DBH         LINE#         9
-  C:01DBH         LINE#         10
-  C:01DDH         LINE#         11
-  C:01DFH         LINE#         12
-  C:01E5H         LINE#         13
-  C:01E8H         LINE#         14
-  C:01F0H         LINE#         15
-  C:01F0H         LINE#         17
-  C:01F4H         LINE#         18
-  C:01F5H         LINE#         19
-  C:01F9H         LINE#         20
-  C:01FAH         LINE#         21
-  C:01FEH         LINE#         22
-  C:01FFH         LINE#         23
-  C:0203H         LINE#         24
-  C:0207H         LINE#         28
-  C:020AH         LINE#         29
-  C:020CH         LINE#         30
-  C:020CH         LINE#         31
-  C:020FH         LINE#         32
+  C:01F5H         LINE#         9
+  C:01F5H         LINE#         10
+  C:01F7H         LINE#         11
+  C:01F9H         LINE#         12
+  C:01FFH         LINE#         13
+  C:0202H         LINE#         14
+  C:020AH         LINE#         15
+  C:020AH         LINE#         17
+  C:020EH         LINE#         18
+  C:020FH         LINE#         19
+  C:0213H         LINE#         20
+  C:0214H         LINE#         21
+  C:0218H         LINE#         22
+  C:0219H         LINE#         23
+  C:021DH         LINE#         24
+  C:0221H         LINE#         28
+  C:0224H         LINE#         29
+  C:0226H         LINE#         30
+  C:0226H         LINE#         31
+  C:0229H         LINE#         32
   -------         ENDPROC       INITBT
   -------         PROC          _GETRSSI
   D:0006H         SYMBOL        wit
   -------         DO            
-  D:000BH         SYMBOL        flag
+  D:000CH         SYMBOL        flag
   -------         ENDDO         
-  C:0210H         LINE#         34
-  C:0212H         LINE#         36
-  C:0217H         LINE#         37
-  C:021AH         LINE#         38
-  C:021DH         LINE#         39
-  C:021DH         LINE#         40
-  C:0225H         LINE#         41
-  C:0233H         LINE#         42
-  C:0233H         LINE#         43
-  C:0235H         LINE#         44
-  C:0236H         LINE#         45
-  C:0236H         LINE#         46
-  C:0238H         LINE#         47
-  C:0239H         LINE#         48
-  C:0239H         LINE#         49
-  C:023BH         LINE#         50
-  C:023CH         LINE#         51
-  C:023CH         LINE#         52
-  C:023EH         LINE#         53
-  C:023EH         LINE#         54
-  C:023EH         LINE#         57
+  C:025AH         LINE#         34
+  C:025CH         LINE#         36
+  C:0261H         LINE#         37
+  C:0264H         LINE#         38
+  C:0267H         LINE#         39
+  C:0267H         LINE#         40
+  C:026FH         LINE#         41
+  C:027DH         LINE#         42
+  C:027DH         LINE#         43
+  C:027FH         LINE#         44
+  C:0280H         LINE#         45
+  C:0280H         LINE#         46
+  C:0282H         LINE#         47
+BL51 BANKED LINKER/LOCATER V6.22                                                      01/26/2018  14:25:09  PAGE 4
+
+
+  C:0283H         LINE#         48
+  C:0283H         LINE#         49
+  C:0285H         LINE#         50
+  C:0286H         LINE#         51
+  C:0286H         LINE#         52
+  C:0288H         LINE#         53
+  C:0288H         LINE#         54
+  C:0288H         LINE#         57
   -------         ENDPROC       _GETRSSI
   -------         ENDMOD        RECANDSEND
-BL51 BANKED LINKER/LOCATER V6.22                                                      01/25/2018  20:12:57  PAGE 4
-
-
 
   -------         MODULE        MYTOOLS
   C:0000H         SYMBOL        _ICE_DUMMY_
@@ -189,81 +199,82 @@ SYMBOL TABLE OF MODULE:  location (MIAN)
   B:00A8H.4       PUBLIC        ES
   B:0098H.0       PUBLIC        RI
   B:0098H.1       PUBLIC        TI
-  C:02BCH         PUBLIC        _sendString
-  C:02A6H         PUBLIC        UsartInit
+  C:02D9H         PUBLIC        _sendString
+  C:02C3H         PUBLIC        UsartInit
   D:0099H         PUBLIC        SBUF
   D:0087H         PUBLIC        PCON
   D:0098H         PUBLIC        SCON
   D:0089H         PUBLIC        TMOD
   D:0025H         PUBLIC        end
-  C:02DAH         PUBLIC        _sendByte
+  C:0305H         PUBLIC        _sendByte
   D:008DH         PUBLIC        TH1
   D:008BH         PUBLIC        TL1
-  C:026CH         PUBLIC        _sendMsg
+  C:0289H         PUBLIC        _sendMsg
   B:0088H.6       PUBLIC        TR1
   C:0026H         PUBLIC        receiver
   D:0026H         PUBLIC        recMsg
-  C:028EH         PUBLIC        _delayms
-  C:02CFH         PUBLIC        _delayus
+  C:02ABH         PUBLIC        _delayms
+  C:02ECH         PUBLIC        _Strlen
+  C:02FAH         PUBLIC        _delayus
   -------         PROC          _DELAYUS
   D:0006H         SYMBOL        i
-  C:02CFH         LINE#         7
-  C:02CFH         LINE#         8
-  C:02D9H         LINE#         9
+  C:02FAH         LINE#         7
+  C:02FAH         LINE#         8
+  C:0304H         LINE#         9
   -------         ENDPROC       _DELAYUS
   -------         PROC          _DELAYMS
   D:0002H         SYMBOL        i
-  C:028EH         LINE#         10
-  C:0292H         LINE#         11
-  C:029CH         LINE#         12
-  C:02A3H         LINE#         13
-  C:02A5H         LINE#         14
+  C:02ABH         LINE#         10
+  C:02AFH         LINE#         11
+  C:02B9H         LINE#         12
+  C:02C0H         LINE#         13
+  C:02C2H         LINE#         14
   -------         ENDPROC       _DELAYMS
   -------         PROC          _SENDBYTE
   D:0007H         SYMBOL        byte
-  C:02DAH         LINE#         17
-  C:02DAH         LINE#         18
-  C:02DAH         LINE#         19
-  C:02DCH         LINE#         20
-  C:02DFH         LINE#         21
-  C:02E1H         LINE#         22
+  C:0305H         LINE#         17
+  C:0305H         LINE#         18
+  C:0305H         LINE#         19
+  C:0307H         LINE#         20
+  C:030AH         LINE#         21
+  C:030CH         LINE#         22
   -------         ENDPROC       _SENDBYTE
+BL51 BANKED LINKER/LOCATER V6.22                                                      01/26/2018  14:25:09  PAGE 5
+
+
   -------         PROC          _SENDSTRING
   D:0001H         SYMBOL        s
-  C:02BCH         LINE#         23
-  C:02BCH         LINE#         24
-  C:02BCH         LINE#         26
-  C:02C2H         LINE#         27
-  C:02C2H         LINE#         28
-  C:02C5H         LINE#         29
-  C:02CCH         LINE#         30
-  C:02CEH         LINE#         31
+  C:02D9H         LINE#         23
+  C:02D9H         LINE#         24
+  C:02D9H         LINE#         26
+  C:02DFH         LINE#         27
+  C:02DFH         LINE#         28
+  C:02E2H         LINE#         29
+  C:02E9H         LINE#         30
+  C:02EBH         LINE#         31
   -------         ENDPROC       _SENDSTRING
-BL51 BANKED LINKER/LOCATER V6.22                                                      01/25/2018  20:12:57  PAGE 5
-
-
   -------         PROC          _SENDMSG
   D:0008H         SYMBOL        msg
-  C:026CH         LINE#         32
-  C:0272H         LINE#         48
-  C:0274H         LINE#         49
-  C:027BH         LINE#         50
-  C:0284H         LINE#         51
-  C:028BH         LINE#         52
-  C:028DH         LINE#         53
+  C:0289H         LINE#         32
+  C:028FH         LINE#         48
+  C:0291H         LINE#         49
+  C:0298H         LINE#         50
+  C:02A1H         LINE#         51
+  C:02A8H         LINE#         52
+  C:02AAH         LINE#         53
   -------         ENDPROC       _SENDMSG
   -------         PROC          USARTINIT
-  C:02A6H         LINE#         55
-  C:02A6H         LINE#         56
-  C:02A6H         LINE#         57
-  C:02A9H         LINE#         58
-  C:02ACH         LINE#         59
-  C:02AFH         LINE#         60
-  C:02B2H         LINE#         61
-  C:02B5H         LINE#         62
-  C:02B7H         LINE#         63
-  C:02B9H         LINE#         64
-  C:02BBH         LINE#         65
+  C:02C3H         LINE#         55
+  C:02C3H         LINE#         56
+  C:02C3H         LINE#         57
+  C:02C6H         LINE#         58
+  C:02C9H         LINE#         59
+  C:02CCH         LINE#         60
+  C:02CFH         LINE#         61
+  C:02D2H         LINE#         62
+  C:02D4H         LINE#         63
+  C:02D6H         LINE#         64
+  C:02D8H         LINE#         65
   -------         ENDPROC       USARTINIT
   -------         PROC          RECEIVER
   -------         DO            
@@ -288,6 +299,9 @@ SYMBOL TABLE OF MODULE:  location (MIAN)
   C:0059H         LINE#         87
   C:005BH         LINE#         89
   C:0064H         LINE#         90
+BL51 BANKED LINKER/LOCATER V6.22                                                      01/26/2018  14:25:09  PAGE 6
+
+
   C:0067H         LINE#         91
   C:0067H         LINE#         92
   C:006FH         LINE#         93
@@ -299,9 +313,6 @@ SYMBOL TABLE OF MODULE:  location (MIAN)
   C:008BH         LINE#         99
   C:0090H         LINE#         100
   C:009AH         LINE#         101
-BL51 BANKED LINKER/LOCATER V6.22                                                      01/25/2018  20:12:57  PAGE 6
-
-
   C:00A4H         LINE#         102
   C:00AEH         LINE#         103
   C:00B1H         LINE#         104
@@ -313,6 +324,19 @@ SYMBOL TABLE OF MODULE:  location (MIAN)
   C:00BAH         LINE#         111
   C:00BCH         LINE#         112
   -------         ENDPROC       RECEIVER
+  -------         PROC          _STRLEN
+  D:0001H         SYMBOL        s
+  -------         DO            
+  D:0007H         SYMBOL        i
+  -------         ENDDO         
+  C:02ECH         LINE#         117
+  C:02ECH         LINE#         118
+  C:02EEH         LINE#         119
+  C:02F3H         LINE#         120
+  C:02F4H         LINE#         121
+  C:02F6H         LINE#         122
+  C:02F9H         LINE#         123
+  -------         ENDPROC       _STRLEN
   -------         ENDMOD        MYTOOLS
 
   -------         MODULE        ?C?CLDPTR
@@ -322,5 +346,8 @@ SYMBOL TABLE OF MODULE:  location (MIAN)
 *** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
     SEGMENT: ?PR?_GETRSSI?RECANDSEND
 
-Program Size: data=44.1 xdata=0 code=731
-LINK/LOCATE RUN COMPLETE.  1 WARNING(S),  0 ERROR(S)
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_STRLEN?MYTOOLS
+
+Program Size: data=45.1 xdata=0 code=774
+LINK/LOCATE RUN COMPLETE.  2 WARNING(S),  0 ERROR(S)

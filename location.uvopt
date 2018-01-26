@@ -172,10 +172,10 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>45</ColumnNumber>
+      <ColumnNumber>60</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>1</TopLine>
-      <CurrentLine>14</CurrentLine>
+      <TopLine>10</TopLine>
+      <CurrentLine>15</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\mian.c</PathWithFileName>
       <FilenameWithoutPath>mian.c</FilenameWithoutPath>
@@ -186,7 +186,7 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>29</ColumnNumber>
+      <ColumnNumber>52</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
       <TopLine>1</TopLine>
       <CurrentLine>1</CurrentLine>
@@ -214,10 +214,10 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>18</ColumnNumber>
+      <ColumnNumber>10</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>63</TopLine>
-      <CurrentLine>83</CurrentLine>
+      <TopLine>92</TopLine>
+      <CurrentLine>122</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\myTools.c</PathWithFileName>
       <FilenameWithoutPath>myTools.c</FilenameWithoutPath>
@@ -1579,37 +1579,37 @@
     <ActiveMDIGroup>0</ActiveMDIGroup>
     <MDIGroup>
       <Size>100</Size>
-      <ActiveTab>3</ActiveTab>
+      <ActiveTab>0</ActiveTab>
       <Documents>
         <Doc>
           <Name>.\mian.c</Name>
-          <ColumnNumber>45</ColumnNumber>
-          <TopLine>1</TopLine>
-          <CurrentLine>14</CurrentLine>
+          <ColumnNumber>60</ColumnNumber>
+          <TopLine>10</TopLine>
+          <CurrentLine>15</CurrentLine>
         </Doc>
         <Doc>
           <Name>RECANDSEND.H</Name>
-          <ColumnNumber>23</ColumnNumber>
+          <ColumnNumber>16</ColumnNumber>
           <TopLine>1</TopLine>
-          <CurrentLine>20</CurrentLine>
+          <CurrentLine>12</CurrentLine>
         </Doc>
         <Doc>
           <Name>.\recAndSend.c</Name>
-          <ColumnNumber>29</ColumnNumber>
+          <ColumnNumber>52</ColumnNumber>
           <TopLine>1</TopLine>
           <CurrentLine>1</CurrentLine>
         </Doc>
         <Doc>
           <Name>.\myTools.c</Name>
-          <ColumnNumber>18</ColumnNumber>
-          <TopLine>63</TopLine>
-          <CurrentLine>83</CurrentLine>
+          <ColumnNumber>10</ColumnNumber>
+          <TopLine>92</TopLine>
+          <CurrentLine>122</CurrentLine>
         </Doc>
         <Doc>
           <Name>MYTOOLS.H</Name>
-          <ColumnNumber>0</ColumnNumber>
-          <TopLine>1</TopLine>
-          <CurrentLine>20</CurrentLine>
+          <ColumnNumber>21</ColumnNumber>
+          <TopLine>2</TopLine>
+          <CurrentLine>31</CurrentLine>
         </Doc>
       </Documents>
     </MDIGroup>

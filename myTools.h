@@ -27,5 +27,7 @@ void delayms(uint i);//delay 1ms
 
 void UsartInit();
 void sendMsg(char* msg);//Baud rate:115200bps
+void sendByte(uchar byte);
+uchar Strlen(uchar *s);
 
 #endif 
